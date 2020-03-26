@@ -22,14 +22,14 @@ public class TableOfPowersApp {
 			while (x <= input) {
 				int squared = (int) Math.pow(x, 2);
 				int cubed = (int) Math.pow(x, 3);
-				detail += x + "        " +squared +"        " +cubed+"\n";
+				detail += x + "\t" +squared + "\t" +cubed +"\n";
 				//System.out.println(x + "        " +squared +"        " +cubed);
 				x++;
 			}
 			
 			//output
-			System.out.println("Number   Squared  Cubed   \n"
-			                +  "=======  =======  =======  ");
+			System.out.println("Number  Squared Cubed   \n"
+			                +  "======= ======= =======  ");
 			System.out.println(detail);
 			System.out.println();
 			
