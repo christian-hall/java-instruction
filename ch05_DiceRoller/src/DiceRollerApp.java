@@ -4,7 +4,6 @@ public class DiceRollerApp {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to the Dice Roller! \n"
-			      	     + "...now with Data Validation! \n"
 	                     + "============================");
 		System.out.println();
 

@@ -58,6 +58,9 @@ public class TipCalculatorEnhanced {
 
 			NumberFormat currency3 = NumberFormat.getCurrencyInstance();
 			String billString = currency3.format(grandTotal);
+			
+			NumberFormat currency7 = NumberFormat.getCurrencyInstance();
+			String correctBillString = currency7.format(bill);
 
 			// calculates relation of tipEntry to Recommended Tip
 			String textResponse = "";
@@ -82,7 +85,7 @@ public class TipCalculatorEnhanced {
 			}
 
 			System.out.println();
-			System.out.println("Your check total is:   " + billString);
+			System.out.println("Your check total is:   " + correctBillString);
 			System.out.println("You entered a tip of:  " + tipEntry + "%");
 			System.out.println("Your tip amount is:    " + tipTotalString);
 			System.out.println("Your total expense is: " + grandTotalString);
