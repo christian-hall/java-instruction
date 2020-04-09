@@ -31,6 +31,7 @@ public class WizardInventoryApp {
 				int index = 1;
 				for (String showInventory : wizardInventory) {
 					System.out.println(index +". - " + showInventory);
+					System.out.println(showInventory);
 					index = index + 1;
 				}
 			}

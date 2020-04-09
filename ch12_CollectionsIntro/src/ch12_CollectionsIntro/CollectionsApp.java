@@ -44,7 +44,7 @@ public class CollectionsApp {
 		System.out.println(names);
 		
 		//get a specific instance
-		System.out.println("What names is in position 2? " +names.get(2));
+		System.out.println("What name is in position 2? " +names.get(2));
 		//below throws an exception becuase there is not an entry
 		//System.out.println("What names is in position 4? " +names.get(4));
 		//This gets the size of array (length)

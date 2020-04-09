@@ -5,9 +5,10 @@ import java.util.List;
 import business.Movie;
 import db.DAO;
 import db.MovieList;
+import db.MovieTextFile;
 
 public class BMDBConsoleApp {
-	private static DAO<Movie> movieRepo = new MovieList();
+	private static DAO<Movie> movieRepo = new MovieTextFile();
 
 	public static void main(String[] args) {
 		// Welcome & Initialization
