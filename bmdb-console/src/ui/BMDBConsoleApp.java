@@ -4,11 +4,12 @@ import java.util.List;
 
 import business.Movie;
 import db.DAO;
+import db.MovieDB;
 import db.MovieList;
 import db.MovieTextFile;
 
 public class BMDBConsoleApp {
-	private static DAO<Movie> movieRepo = new MovieTextFile();
+	private static DAO<Movie> movieRepo = new MovieDB();
 
 	public static void main(String[] args) {
 		// Welcome & Initialization
@@ -71,6 +72,7 @@ public class BMDBConsoleApp {
 		movieRepo.add(m);
 		// display confirmation massage
 		System.out.println("Movie successfully added.");
+		System.out.println();
 	}
 	private static void listMovies() {
 		// get list of all movies

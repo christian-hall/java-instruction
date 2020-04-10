@@ -46,6 +46,8 @@ public class JurassicEscapeApp {
 				raptor2 = NumberGenerator.locationDie();
 				raptor3 = NumberGenerator.locationDie();
 				
+				System.out.println("Raptor locations: " +raptor1+raptor2+raptor3);
+				
 				//prompt the user for their choice
 				hideChoice = Console2.getInt(TextResponse.hidingPlaces(), 0, 7);
 				if (hideChoice == raptor1 || hideChoice == raptor2 || hideChoice == raptor3) {
