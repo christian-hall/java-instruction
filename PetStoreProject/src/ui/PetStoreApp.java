@@ -75,7 +75,7 @@ public class PetStoreApp {
 	public static ArrayList<Pet> addPet(ArrayList<Pet> petList) {
 		// prompt the user to add information
 		System.out.println(TextResponse.addPetTitle());
-		int id = Console.getInt("Enter id?      ", 0, (int)Double.POSITIVE_INFINITY);
+		int id = Console.getInt("Enter id?      ", 0, Integer.MAX_VALUE);
 		String type = Console.getString("Enter type?    ", true);
 		String species = Console.getString("Enter species? ", true);
 		String name = Console.getString("Enter name?    ", true);
@@ -89,8 +89,16 @@ public class PetStoreApp {
 	private static Pet getIdAndReturnPet(ArrayList<Pet> petList){
 		Pet p = null;
 		while (p == null) {
-			int id = Console.getInt("Id of pet to adopt?  ", 0, (int)Double.POSITIVE_INFINITY);
-			p = petList.get(id);
+			int id = Console.getInt("Id of pet to adopt?  ", 0, Integer.MAX_VALUE);
+			//find the pet whose id matches the one entered
+			for (Pet foundPet : petList) {
+				if (foundPet.getId()==id) {
+					p = foundPet;
+				}
+			}
+			if (p!=null) {
+				petList.remove(p);
+			}
 		}
 		return p;
 	}
@@ -99,7 +107,7 @@ public class PetStoreApp {
 		TextResponse.addPetTitle();
 		Pet p = getIdAndReturnPet(petList);
 		petList.remove(p);
-		//display confirmation message
+		System.out.println("Pet adopted!\n");
 		return petList;
 		
 		

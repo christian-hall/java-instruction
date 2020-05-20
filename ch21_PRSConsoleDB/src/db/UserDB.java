@@ -16,27 +16,21 @@ public class UserDB implements DAO<User> {
 		return conn;
 	}
 
-	@Override
-	public User get(int id) {
-		String sql = "SELECT * FROM user WHERE id = ?";
+
+	public User login(String userName, String password) {
+		String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
 		User u = null;
 		try (Connection conn = getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setInt(1, id);
+			ps.setString(1, userName);
+			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				id = rs.getInt(1);
-				String userName = rs.getString(2);
-				String password = rs.getString(3);
-				String firstName = rs.getString(4);
-				String lastName = rs.getString(5);
-				String phoneNumber = rs. getString(6);
-				String email = rs.getString(7);
-				boolean reviewer = rs.getBoolean(8);
-				boolean admin = rs.getBoolean(9);
-				u = new User (id, userName, password, firstName,
-						lastName, phoneNumber, email, reviewer, admin);
+				u = getUserFromResultSet(rs);
 				rs.close();
+			}
+			else {
+				//no user data found for username, password
 			}
 			
 		} catch (SQLException e) {
@@ -45,6 +39,28 @@ public class UserDB implements DAO<User> {
 		}
 		return u;
 	}
+	
+	@Override
+	public User get(int id) {
+		String sql = "SELECT * FROM user WHERE id = ?";
+		User u = null;
+		try (Connection conn = getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				id = rs.getInt(1);
+				u = getUserFromResultSet(rs);
+				
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			u = null;
+		}
+		return u;
+	}
+	
 
 	// this method lists all users by recalling them from the database and printing
 	// them.
@@ -56,17 +72,7 @@ public class UserDB implements DAO<User> {
 				PreparedStatement ps = conn.prepareStatement(sql); // executes the prepared statement
 				ResultSet rs = ps.executeQuery()) { // if this works, we get a result set to process
 			while (rs.next()) { // while there is a row in the ResultSet(rs)
-				int id = rs.getInt(1); // lists out the variables for the fields in SQL. Could have named "id"
-				String userName = rs.getString(2); // could be userName instead of 2
-				String password = rs.getString(3); // could be password instead of 3
-				String firstName = rs.getString(4); // could be firstName instead of 4, etc
-				String lastName = rs.getString(5);
-				String phoneNumber = rs.getString(6);
-				String email = rs.getString(7);
-				boolean reviewer = rs.getBoolean(8);
-				boolean admin = rs.getBoolean(9);
-				// create an instance of User
-				User u = new User(id, userName, password, firstName, lastName, phoneNumber, email, reviewer, admin);
+				User u = getUserFromResultSet(rs);
 				users.add(u); // add user to the list, having defined user on line 28 as a list
 				// this repeats for every row, adding one user for each row.
 			}
@@ -77,6 +83,20 @@ public class UserDB implements DAO<User> {
 							// calling this statement
 		}
 		return users;
+	}
+	
+	private User getUserFromResultSet(ResultSet rs) throws SQLException {
+		int id = rs.getInt(1); // lists out the variables for the fields in SQL. Could have named "id"
+		String userName = rs.getString(2); // could be userName instead of 2
+		String password = rs.getString(3); // could be password instead of 3
+		String firstName = rs.getString(4);
+		String lastName = rs.getString(5);
+		String phoneNumber = rs.getString(6);
+		String email = rs.getString(7);
+		boolean reviewer = rs.getBoolean(8);
+		boolean admin = rs.getBoolean(9);
+		User u = new User(id, userName, password, firstName, lastName, phoneNumber, email, reviewer, admin);
+		return u;
 	}
 
 	@Override
@@ -118,12 +138,11 @@ public class UserDB implements DAO<User> {
 		String sql = "DELETE FROM User WHERE id = ?";
 		try (Connection conn = getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps. setInt(1, u.getId());
+			ps.setInt(1, u.getId());
 			ps.executeUpdate();
 			success = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			success = false;
 		}
 		return success;
 	}
